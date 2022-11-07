@@ -1,4 +1,4 @@
-module qczj
+module github.com/asjdf/qczj
 
 go 1.19
 
