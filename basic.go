@@ -172,9 +172,9 @@ func StudyRecords(accessToken string, pageSize, pageNum uint, desc ...string) (*
 }
 
 type SignInResp struct {
-	Status  int         `json:"status"`
-	Message interface{} `json:"message"`
-	Result  bool        `json:"result"`
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+	Result  bool   `json:"result"`
 }
 
 // SignIn resp中result为false时表示当天为打卡且当此打卡成功
@@ -194,9 +194,9 @@ func SignIn(accessToken string) (*SignInResp, error) {
 }
 
 type SignInRecordResp struct {
-	Status  int         `json:"status"`
-	Message interface{} `json:"message"`
-	Result  []string    `json:"result"`
+	Status  int      `json:"status"`
+	Message string   `json:"message"`
+	Result  []string `json:"result"`
 }
 
 // SignInRecord 获取指定月份签到记录 date的格式2006-01 result是时间数组格式为2006-01-02
