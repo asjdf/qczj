@@ -121,7 +121,7 @@ func Study(accessToken, cardNo, course, nid string) error {
 		}).
 		SetJSON(gout.H{
 			"course": course,
-			"subOrg": nil,
+			"subOrg": "",
 			"nid":    nid,
 			"cardNo": cardNo,
 		}).
@@ -177,7 +177,7 @@ type SignInResp struct {
 	Result  bool   `json:"result"`
 }
 
-// SignIn resp中result为false时表示当天为打卡且当此打卡成功
+// SignIn resp中result为true时表示当天已打卡且当此打卡成功
 func SignIn(accessToken string) (*SignInResp, error) {
 	resp := SignInResp{}
 	err := gout.POST("https://qczj.h5yunban.com/qczj-youth-learning/cgi-bin/user-api/sign-in").
