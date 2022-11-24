@@ -113,21 +113,37 @@ func LastInfo(accessToken string) (*LastInfoDetail, error) {
 	return &resp.Result, err
 }
 
+type StudyResp struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
+	Result  struct {
+		Openid     string `json:"openid"`
+		SubOrg     string `json:"subOrg"`
+		CardNo     string `json:"cardNo"`
+		Id         string `json:"id"`
+		UserIp     string `json:"userIp"`
+		Nid        string `json:"nid"`
+		CreateTime string `json:"createTime"`
+	} `json:"result"`
+	Debug interface{} `json:"debug"`
+}
+
 // Study cardNo:学号或姓名 course:课程id nid:组织id
-func Study(accessToken, cardNo, course, nid string) error {
+func Study(accessToken, cardNo, course, nid string) (*StudyResp, error) {
+	resp := StudyResp{}
 	err := gout.POST("https://qczj.h5yunban.com/qczj-youth-learning/cgi-bin/user-api/course/join").
 		SetQuery(gout.H{
 			"accessToken": accessToken,
 		}).
 		SetJSON(gout.H{
 			"course": course,
-			"subOrg": "",
+			"subOrg": nil,
 			"nid":    nid,
 			"cardNo": cardNo,
 		}).
 		SetHeader(gout.H{"User-Agent": wechatUA}).
-		Do()
-	return err
+		BindJSON(&resp).Do()
+	return &resp, err
 }
 
 type StudyRecordsResp struct {
